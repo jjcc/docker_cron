@@ -38,4 +38,4 @@ RUN touch /var/log/cron.log
 
 #CMD [ "flask", "run","--host","0.0.0.0","--port","5000"]
 COPY ./start.sh /
-CMD ["/app/start.sh"]
+CMD ["/start.sh"]
