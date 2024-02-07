@@ -34,8 +34,8 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN touch /var/log/cron.log
 
 # Run the cron service in the foreground
-CMD cron -f
+#CMD cron -f
 
 #CMD [ "flask", "run","--host","0.0.0.0","--port","5000"]
-#COPY ./t0 /tmp/
-#CMD ["/app/start.sh"]
+COPY ./t0 /tmp/
+CMD ["/app/start.sh"]
