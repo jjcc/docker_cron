@@ -30,9 +30,6 @@ RUN sed -i 's/\r$//' /tmp/my_crontab && cat /tmp/my_crontab >> /etc/crontab
 RUN mkdir -p /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Create the log file to be able to check cron works
-RUN touch /var/log/cron.log
-
 # Run the cron service in the foreground
 #CMD cron -f
 
