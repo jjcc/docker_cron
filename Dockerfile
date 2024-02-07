@@ -7,20 +7,19 @@ RUN apt-get update && apt-get install -y \
     vim \
     mc \
     python3 \
-    python3-pip #\ supervisor
+    python3-pip \
+    supervisor
 
 
-#RUN echo "*/5 * * * root echo 'Hello from your cron job!' >> /var/log/cron.log 2>&1" >> /etc/crontab
+WORKDIR  /app
 
-#WORKDIR  /app
-#
-#
-## flask part
-#COPY requirements.txt ./
-#RUN pip install -r requirements.txt
-## Bundle app source
-#COPY app/* .
-#EXPOSE 5000
+
+# flask part
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+# Bundle app source
+COPY app/* .
+EXPOSE 5000
 
 # Copy your local cron file into the image
 COPY cronjobs.simple /tmp/my_crontab
@@ -28,8 +27,8 @@ COPY cronjobs.simple /tmp/my_crontab
 RUN sed -i 's/\r$//' /tmp/my_crontab && cat /tmp/my_crontab >> /etc/crontab
 
 # cron under supervisord
-#RUN mkdir -p /var/log/supervisor
-#COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log
