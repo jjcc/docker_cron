@@ -1,0 +1,2 @@
+###
+* * * * * root echo 'Hello from cron job! by file copy' >> /var/log/cron.log 2>&1
